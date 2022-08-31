@@ -5,20 +5,35 @@ import { LessonService } from './lesson.service';
 
 @Resolver((of) => Lesson)
 export class LessonResolver {
-  constructor(private lessonService: LessonService) {}
+  constructor(private service: LessonService) {}
 
-  @Query((returns) => Lesson)
-  lesson(@Args('id') id: string) {
-    return this.lessonService.getLesson(id);
+  @Query(() => [Lesson])
+  lessons(): Promise<Lesson[]> {
+    return this.service.getAllLessons();
   }
 
-  @Query((returns) => [Lesson])
-  lessons() {
-    return this.lessonService.getAllLessons();
+  @Query(() => Lesson)
+  lesson(@Args('id') id: string): Promise<Lesson> {
+    return this.service.getLesson(id);
   }
 
-  @Mutation((returns) => Lesson)
+  @Mutation(() => Lesson)
   createLesson(@Args('create') lesson: CreateLessonInput): Promise<Lesson> {
-    return this.lessonService.createLesson(lesson);
+    return this.service.create(lesson);
+  }
+
+  @Mutation(() => Lesson)
+  updateLesson(
+    @Args('id') id: string,
+    @Args('lesson') lesson: CreateLessonInput,
+  ): Promise<Lesson> {
+    return this.service.update(id, lesson);
+  }
+
+  @Mutation(() => Lesson)
+  deleteLesson(@Args('id') id: string): Promise<Lesson> {
+    console.log(id);
+
+    return this.service.delete(id);
   }
 }

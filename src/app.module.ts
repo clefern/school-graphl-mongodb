@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { LessonModule } from './lesson/lesson.module';
 import { ApolloDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { StudentModule } from './student/student.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     GraphQLModule.forRoot({ autoSchemaFile: true, driver: ApolloDriver }),
     LessonModule,
+    StudentModule,
   ],
 })
 export class AppModule {}
