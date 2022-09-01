@@ -12,11 +12,11 @@ export class Student {
   @PrimaryColumn()
   id: string;
 
-  @Field()
+  @Field((type) => String, { nullable: true })
   @Column()
   firstName: string;
 
-  @Field()
+  @Field((type) => String, { nullable: true })
   @Column()
   lastName: string;
 }
